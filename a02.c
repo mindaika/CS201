@@ -9,14 +9,14 @@ double absD(double n)
 {
 // do not change anything above this comment
 
-    asm("pushl %ebp;"
-		"movl %esp, %ebp;"
-		"fld 8(%ebp);"
-		"fabs;"
-		"fstp 8(%ebp);"
-		"popl %ebp;"
-	);
-    return n;
+  asm("pushl %ebp;"
+	  "movl %esp, %ebp;"
+	  "fld 8(%ebp);"
+	  "fabs;"
+	  "fstp 8(%ebp);"
+	  "popl %ebp;"
+	  );
+  return n;
 
 // do not change anything below this comment, except for printing out your name
 }

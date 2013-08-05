@@ -20,17 +20,12 @@ double powD(double n, double exp)
   short *oldCW = malloc(sizeof(short));
   int roundingMode = 3 << 10;
   
-  // Because all good programming involves leaving in junk from other assignments
-  // Change Rounding Mode
+   // Change Rounding Mode
   asm("fstcw %5;" // store control word in oldCW
 	  "mov %5, %4;" // copy control word into cw2
 	  "or %2, %4;" // put new mode into rounding control bits
 	  "mov %4, %3;" // copy cw2 into newCW
 	  "fldcw %3;" // Loads newCW into Control
-	  //"fldl %0;" // load n into st(0)
-	  //"frndint;" // round n
-	  //"fstpl %0;" // load st(0) back into n
-	  //"fldcw %5;" // load the old control word from cw
 	  : "=m" (n)
 	  : "m" (n), "m" (roundingMode),
 		"m" (newCW), "r" (cw2), "m" (oldCW) // mov requires one argument in a register
@@ -50,10 +45,21 @@ double powD(double n, double exp)
 	  "fscale;" // Compute result
 	  "fstp %%st(1);" // Pop ST1
 	  "fstpl %0;" // Store final result in n
+	  "fldcw %3;" // load the old control word from cw
 	  : "=m" (n)
-	  : "m" (n), "m" (exp)
+	  : "m" (n), "m" (exp), "m" (oldCW)
 	  );
-    return n;
+
+  // Cleanup, aisle7
+  oldCW = NULL;
+  free (oldCW);
+
+  newCW = NULL;
+  free (newCW);
+
+  cw2 = NULL;
+  free (cw2);
+  return n;
 
 // do not change anything below this comment, except for printing out your name
 }

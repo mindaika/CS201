@@ -23,7 +23,7 @@ double absD(double n)
 
 int main(int argc, char **argv)
 {
-    double  n = 0;
+    double  n = 0.0;
 
     printf("CS201 - Assignment 02 - Randall Sewell\n");
     if (argc > 1)

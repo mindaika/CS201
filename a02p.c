@@ -26,9 +26,6 @@ double roundD(double n, RoundingMode roundingMode)
 
   // I suspect at least some of this is redundant, but it works
   // If you'd like to critique it, feel free
-  // Also, I don't remember if n was set as "0" or "0.0" in main, and D2L
-  // is down so I can't check to make sure. I'll delete this sentence if I can check before
-  // I turn it in.
   asm("fstcw %5;" // store control word in oldCW
 	  "mov %5, %4;" // copy control word into cw2
 	  "or %2, %4;" // put new mode into rounding control bits
@@ -58,7 +55,7 @@ double roundD(double n, RoundingMode roundingMode)
 
 int main(int argc, char **argv)
 {
-    double  n = 0;
+    double  n = 16.5;
 
     printf("CS201 - Assignment 02p - Randall Sewell\n");
     if (argc > 1)

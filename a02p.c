@@ -18,44 +18,44 @@ double roundD(double n, RoundingMode roundingMode)
 {
 // do not change anything above this comment
   
-  // Control Word storage; CW is mem16
-  char  *cw2   = malloc(4*sizeof(char));
-  short *newCW = malloc(sizeof(short));
-  short *oldCW = malloc(sizeof(short));
-  // n = 2.500; // for testing purposes
+    // Control Word storage; CW is mem16
+    char  *cw2   = malloc(4*sizeof(char));
+    short *newCW = malloc(sizeof(short));
+    short *oldCW = malloc(sizeof(short));
+    // n = 2.500; // for testing purposes
 
-  // I suspect at least some of this is redundant, but it works
-  // If you'd like to critique it, feel free
-  asm("fstcw %5;" // store control word in oldCW
-	  "mov %5, %4;" // copy control word into cw2
-	  "or %2, %4;" // put new mode into rounding control bits
-	  "mov %4, %3;" // copy cw2 into newCW
-	  "fldcw %3;" // Loads newCW into Control
-	  "fldl %0;" // load n into st(0)
-	  "frndint;" // round n
-	  "fstpl %0;" // load st(0) back into n
-	  "fldcw %5;" // load the old control word from cw
-	  : "=m" (n)
-	  : "m" (n), "m" (roundingMode),
-		"m" (newCW), "r" (cw2), "m" (oldCW) // mov requires one argument in a register
-	  );
+    // I suspect at least some of this is redundant, but it works
+    // If you'd like to critique it, feel free
+    asm("fstcw %5;" // store control word in oldCW
+        "mov %5, %4;" // copy control word into cw2
+        "or %2, %4;" // put new mode into rounding control bits
+        "mov %4, %3;" // copy cw2 into newCW
+        "fldcw %3;" // Loads newCW into Control
+        "fldl %0;" // load n into st(0)
+        "frndint;" // round n
+        "fstpl %0;" // load st(0) back into n
+        "fldcw %5;" // load the old control word from cw
+        : "=m" (n)
+        : "m" (n), "m" (roundingMode),
+        "m" (newCW), "r" (cw2), "m" (oldCW) // mov requires one argument in a register
+      );
 
-  // Cleanup, aisle7
-  oldCW = NULL;
-  free (oldCW);
+    // Cleanup, aisle7
+    oldCW = NULL;
+    free (oldCW);
 
-  newCW = NULL;
-  free (newCW);
+    newCW = NULL;
+    free (newCW);
 
-  cw2 = NULL;
-  free (cw2);
-  return n;
-  // do not change anything below this comment, except for printing out your name
+    cw2 = NULL;
+    free (cw2);
+    return n;
+    // do not change anything below this comment, except for printing out your name
 }
 
 int main(int argc, char **argv)
 {
-    double  n = 16.5;
+    double  n = 0.0;
 
     printf("CS201 - Assignment 02p - Randall Sewell\n");
     if (argc > 1)

@@ -15,15 +15,13 @@ int main (void)
   
 
     // You can add variables between this comment ...
-    double arraySum = 0;
-    int arrayFlag = 0;
+    double  arraySum = 0;
+    int     arrayFlag = 0;
     // ... and this one.
 
     // Please change 'your name' to your actual name.
     printf("CS201 - Asgmt 4 - Randall Sewell\n");
-
     for (i = 0; i < N_TIMES; i++) {
-
     // You can change anything between this comment ...
         int     j;
         if ( arrayFlag == 0 ) {
@@ -38,16 +36,11 @@ int main (void)
     // ... and this one. But your inner loop must do the same
     // number of additions as this one does.
     }
-
     // You can add some final code between this comment ...
-
-
     printf("You cannot make a thing idiot-proof;\n");
     printf("you can only make it idiot-resistant.\n");
     printf("So long, and thanks for all the fish.\n");
     printf("\nThanks for a great class!\n");
-
     // ... and this one.
-
     return 0;
 }
